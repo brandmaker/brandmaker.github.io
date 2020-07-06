@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Media Pool (current state)</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/main.css">
+        <link rel="stylesheet" type="text/css" href="../swagger/swagger-ui.css" >
+    </head>
+    <body>
+        <section class="hero hero--api">
+            <header class="hero__header">
+                <a class="hero__logolink" href="/">
+                    <img src="/assets/bm_logo.svg" alt="Logo Brandmaker">
+                </a>
+                <nav class="mainnav">
+                    <ul class="mainnav__list"><li class="mainnav__listitem mainnav__listitem--haschildren"><a href="/api/" class="mainnav__listitemlink">API</a><ul><li class="mainnav__listitem"><a href="/api/mediapool/" class="mainnav__listitemlink">MediaPool</a></li>
+<li class="mainnav__listitem"><a href="/api/w2p/" class="mainnav__listitemlink">Web to Publish</a></li>
+<li class="mainnav__listitem"><a href="/api/maps/" class="mainnav__listitemlink">MarketingPlanner</a></li>
+<li class="mainnav__listitem"><a href="/api/mp-test/" class="mainnav__listitemlink">MediaPool (nexus)</a></li></ul></li>
+<li class="mainnav__listitem"><a href="/github/" class="mainnav__listitemlink">Github</a></li></ul>
+                </nav>
+                <section class="hero__slogan hero__slogan--api">
+                    <div class="hero__text">
+                        <h1 class="hero__headline">MediaPool</h1>
+                        <p class="hero__p hero__p--strong">This is an API Swagger.json directly from nexus.</p>
+                    </div>
+                </section>
+            </header>
+        </section>
+        <div id="swagger-ui"></div>
+            <script src="../swagger/swagger-ui-bundle.js"> </script>
+            <script src="../swagger/swagger-ui-standalone-preset.js"> </script>
+            <script>
+                window.onload = function() {
+                // Begin Swagger UI call region
+                const ui = SwaggerUIBundle({
+                    url: "https://nexus.dev.brandmaker.com/repository/documentation/com.brandmaker.mms/mediapool-rest-api/64.0.1-6.8/rest-api/ui/swagger.json",
+                    dom_id: '#swagger-ui',
+                    docExpansion: "full",
+                    deepLinking: true,
+                    presets: [
+                        SwaggerUIBundle.presets.apis,
+                        SwaggerUIStandalonePreset
+                    ],
+                    plugins: [
+                        SwaggerUIBundle.plugins.DownloadUrl
+                    ],
+                    layout: "StandaloneLayout"
+                })
+                // End Swagger UI call region
+                window.ui = ui
+            }
+        </script>
+    </body>
+</html>
