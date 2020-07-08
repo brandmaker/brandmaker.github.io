@@ -342,7 +342,7 @@ a {
   z-index: 4;
 }
 .mainnav__listitem:hover {
-  z-index: 3;
+  z-index: 15;
 }
 .mainnav__listitem:hover > .mainnav__listitemlink {
   color: #f95b02;
