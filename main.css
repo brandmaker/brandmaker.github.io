@@ -238,6 +238,7 @@ a {
   opacity: 0.75;
   max-width: 1000px;
   margin: 0 auto 2rem;
+  flex: 1 1 70%;
 }
 .hero__p--strong {
   font-weight: 600;
