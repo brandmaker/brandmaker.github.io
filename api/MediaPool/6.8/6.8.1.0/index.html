@@ -5,8 +5,9 @@
         <title>Brandmaker Dev Portal</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="/main.css">
+        <link rel="stylesheet" type="text/css" href="../../../../swagger/swagger-ui.css?v=2" >
     </head>
-    <body class="home">
+    <body class="api">
         <!--- topbar with navigation -->
 <header class="topbar">
     <a class="hero__logolink" href="/">
@@ -29,18 +30,39 @@
                 <a class="mainnav__listitemlink" href="/github/">github</a></li></ul>
     </nav>
 </header>
-        <section class="hero">
-            <section class="hero__slogan">
-                <div class="hero__text">
-                    <h1 class="hero__headline">Unleashing your <a href="api">API</a> Superpowers!</h1>
-                    <p class="hero__p">Equipping 20 of the world’s leading banks, 20 of the world’s leading manufacturers, plus many of the top auto makers and life sciences companies, we have seen a lot of enterprise marketing operations.</p>
-                    <p class="hero__p hero__p--strong">Open APIs enable our customers to create their own solutions on top of our powerful MRM.</p>
-                    
-                        <a class="cta" href="/api">Discover our API</a>
-                    
-                </div>
-            </section>
+        <section class="hero hero--api">
+            <header class="hero__header">
+                <section class="hero__slogan hero__slogan--api">
+                    <div class="hero__text">
+                        <h1 class="hero__headline">MediaPool</h1>
+                    </div>
+                </section>
+            </header>
+            <div id="swagger-ui"></div>
+            <script src="../../../../swagger/swagger-ui-bundle.js"> </script>
+            <script src="../../../../swagger/swagger-ui-standalone-preset.js"> </script>
+            <script>
+                window.onload = function() {
+                    // Begin Swagger UI call region
+                    const ui = SwaggerUIBundle({
+                        url: "swagger.mediapool.json",
+                        dom_id: '#swagger-ui',
+                        //docExpansion: "full",
+                        deepLinking: false,
+                        presets: [
+                            SwaggerUIBundle.presets.apis,
+                            SwaggerUIStandalonePreset
+                        ],
+                        plugins: [
+                            SwaggerUIBundle.plugins.DownloadUrl
+                        ],
+                        layout: "StandaloneLayout",
+                        highlightSizeThreshold: 1,
+                    })
+                    // End Swagger UI call region
+                    window.ui = ui
+                }
+            </script>
         </section>
-        
     </body>
 </html>
