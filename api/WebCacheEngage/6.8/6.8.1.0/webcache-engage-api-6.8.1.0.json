@@ -1,0 +1,1889 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "## Swagger generated Documentation of the WebCache RESTful API ##\n\n### Module **Engage** ###\n\nBrandMaker provides software solutions that automate customer engagement while nurturing prospects in a highly personalized way. \nThe net result? More sales leads that are qualified, increased pipeline activity, and marketing that just works. \n\nThe BrandMaker WebCache modules are the central part of the engagement solution. They solely provide [RESTful APIs](https://en.wikipedia.org/wiki/Representational_state_transfer) \nin order to enable developers to put their own integrations on top of it.\n\nThis documentation consists of two parts:\n\n+ [Module WebCache Core](/api-doc/?url=/api-core/swagger-ui/swagger.json)\n+ [Module Engage  (this file)](/api-doc/?url=/api-engage/swagger-ui/swagger.json)\n\nPlease refer to the proper bundle / module",
+    "version" : "1.0.0",
+    "title" : "WebCache RESTful API",
+    "termsOfService" : "https://www.brandmaker.com/en/imprint",
+    "contact" : {
+      "name" : "BrandMaker GmbH, Karlsruhe, Germany",
+      "url" : "http://brandmaker.com",
+      "email" : "info@brandmaker.com"
+    },
+    "license" : {
+      "name" : "Copyright (c) 2017,  BrandMaker GmbH",
+      "url" : "http://www.brandmaker.com"
+    }
+  },
+  "host" : "wcdev.brandmaker.com",
+  "basePath" : "/services",
+  "tags" : [ {
+    "name" : "Contacts"
+  }, {
+    "name" : "E-Mail"
+  }, {
+    "name" : "Journeys"
+  }, {
+    "name" : "Reports"
+  }, {
+    "name" : "SEW, My Assets"
+  }, {
+    "name" : "Statistics"
+  }, {
+    "name" : "Tenant template services"
+  } ],
+  "schemes" : [ "https" ],
+  "paths" : {
+    "/v1/contacts" : {
+      "post" : {
+        "tags" : [ "Contacts" ],
+        "summary" : "Create a new Contact or update an existing one",
+        "description" : "<p>Create a new Contact or update an existing one. The email is taken as unique identifier: if existing, the contact gets updated, if not a new one is created.The returned JSON contains the contact data and its ID. POST data <i>must</i> have this structure:<pre>\n{\n\t\t\"firstname\":\"Hans\",\n\t\t\"lastname\":\"Wurst\",\n\t\t\"email\":\"hans.wurst@metzgerei.org\",\n\t\t\"tenant\":\"1\",\n\t\t\"contact_private\":true\n}\n</pre>\n<p>All fields are mandatory! <p> <p>The value of <code>contact_private</code> <b>must</b> be <code><b>true</b></code>, otherwise the contact is not assigned to that user but a public contact!<p> <p>Result:<pre>{\n\n\t\"tenant\": \"1\",\n\t\"journeys\": null,\n\t\"identifier\": \"c_3j1qfur\",\n\t\"description\": null,\n\t\"firstname\": \"Hans\",\n\t\"lastname\": \"Wurst\",\n\t\"lastseen\": null,\n\t\"version\": 1,\n\t\"visit\": 1,\n\t\"request\": null,\n\t\"email\": \"hans.wurst@metzgerei.org\",\n\t\"company\": null,\n\t\"street\": null,\n\t\"zip\": null,\n\t\"city\": null,\n\t\"country\": null,\n\t\"phone\": null,\n\t\"doi_confirmation\": null,\n\t\"blacklisted\": false,\n\t\"currentasset\": null,\n\t\"assets\": null,\n\t\"jcr:created\": 1548947082857,\n\t\"jcr:lastModified\": 1548947082860,\n\t\"engagements\": [],\n\t\"reengagements\": []\n}",
+        "operationId" : "createContact",
+        "consumes" : [ "application/json;charset=utf-8" ],
+        "produces" : [ "application/json;charset=utf-8" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "Contact data",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "default" : "{\n\t\t\"firstname\":\"Hans\",\n\t\t\"lastname\":\"Wurst\",\n\t\t\"email\":\"hans.wurst@metzgerei.org\",\n\t\t\"tenant\":\"1\",\n\t\t\"contact_private\":true\n}\n"
+          }
+        }, {
+          "name" : "callback",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        },
+        "security" : [ {
+          "Authorization" : [ ]
+        } ]
+      }
+    },
+    "/v1/contacts/history/{contactIdentifier}" : {
+      "get" : {
+        "tags" : [ "Contacts" ],
+        "summary" : "Get a change history of a given contact",
+        "description" : "<p>The contact records are versioned. This service provides a list of all changes to this contact.",
+        "operationId" : "getContactHistory",
+        "produces" : [ "application/json;charset=utf-8" ],
+        "parameters" : [ {
+          "name" : "contactIdentifier",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "pattern" : "c_[a-zA-Z0-9]+"
+        }, {
+          "name" : "callback",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        },
+        "security" : [ {
+          "Authorization" : [ ]
+        } ]
+      }
+    },
+    "/v1/contacts/leads" : {
+      "get" : {
+        "tags" : [ "Contacts" ],
+        "summary" : "Get a list of contacts, the current user is owner of",
+        "description" : "<p>Get a list of contacts, the current user is owner of.",
+        "operationId" : "getUnassignedContacts",
+        "produces" : [ "application/json;charset=utf-8" ],
+        "parameters" : [ {
+          "name" : "callback",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        },
+        "security" : [ {
+          "Authorization" : [ ]
+        } ]
+      }
+    },
+    "/v1/contacts/my" : {
+      "get" : {
+        "tags" : [ "Contacts" ],
+        "summary" : "Get a list of contacts, the current user is owner of",
+        "description" : "<p>Get a list of contacts, the current user is owner of.",
+        "operationId" : "getMyContacts",
+        "produces" : [ "application/json;charset=utf-8" ],
+        "parameters" : [ {
+          "name" : "callback",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        },
+        "security" : [ {
+          "Authorization" : [ ]
+        } ]
+      }
+    },
+    "/v1/contacts/my/{contactIdentifier}" : {
+      "delete" : {
+        "tags" : [ "Contacts" ],
+        "summary" : "Delete this contact from the list of private contacts of this user",
+        "description" : "<p>Delete this contact from the list of private contacts of this user. The contact itself is not deleted, but the user is removed from the list of owners in this contact",
+        "operationId" : "deleteMyReference",
+        "produces" : [ "application/json;charset=utf-8" ],
+        "parameters" : [ {
+          "name" : "contactIdentifier",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "pattern" : "c_[a-zA-Z0-9]+"
+        }, {
+          "name" : "callback",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        },
+        "security" : [ {
+          "Authorization" : [ ]
+        } ]
+      }
+    },
+    "/v1/contacts/process/{tenantIdentifier}" : {
+      "get" : {
+        "tags" : [ "Contacts" ],
+        "operationId" : "processContacts",
+        "produces" : [ "application/json;charset=utf-8" ],
+        "parameters" : [ {
+          "name" : "tenantIdentifier",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "pattern" : "[0-9*]+"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        },
+        "security" : [ {
+          "Authorization" : [ ]
+        } ]
+      }
+    },
+    "/v1/contacts/{contactIdentifier}" : {
+      "get" : {
+        "tags" : [ "Contacts" ],
+        "summary" : "Get contact meta data",
+        "description" : "<p>Get entire meta data of a given contact.",
+        "operationId" : "getContact",
+        "produces" : [ "application/json;charset=utf-8" ],
+        "parameters" : [ {
+          "name" : "contactIdentifier",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "pattern" : "c_[a-zA-Z0-9]+"
+        }, {
+          "name" : "callback",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        },
+        "security" : [ {
+          "Authorization" : [ ]
+        } ]
+      },
+      "put" : {
+        "tags" : [ "Contacts" ],
+        "operationId" : "createOrUpdateContact",
+        "consumes" : [ "application/json;charset=utf-8" ],
+        "produces" : [ "application/json;charset=utf-8" ],
+        "parameters" : [ {
+          "name" : "contactIdentifier",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "pattern" : "c_[a-zA-Z0-9]+"
+        }, {
+          "name" : "callback",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        },
+        "security" : [ {
+          "Authorization" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Contacts" ],
+        "operationId" : "deleteContact",
+        "produces" : [ "application/json;charset=utf-8" ],
+        "parameters" : [ {
+          "name" : "contactIdentifier",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "pattern" : "c_[a-zA-Z0-9]+"
+        }, {
+          "name" : "callback",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        },
+        "security" : [ {
+          "Authorization" : [ ]
+        } ]
+      }
+    },
+    "/v1/contacts/{tenantIdentifier}" : {
+      "get" : {
+        "tags" : [ "Contacts" ],
+        "summary" : "Get a list of contact IDs of this tenant",
+        "description" : "<p>Get a list of contact IDs of this tenant. This service supports paging.",
+        "operationId" : "getContacts",
+        "produces" : [ "application/json;charset=utf-8" ],
+        "parameters" : [ {
+          "name" : "tenantIdentifier",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "pattern" : "[0-9]+"
+        }, {
+          "name" : "from",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "default" : 1,
+          "format" : "int32"
+        }, {
+          "name" : "to",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "default" : 100,
+          "format" : "int32"
+        }, {
+          "name" : "callback",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        },
+        "security" : [ {
+          "Authorization" : [ ]
+        } ]
+      }
+    },
+    "/v1/contacts/{tenantIdentifier}/filter/assets" : {
+      "post" : {
+        "tags" : [ "Contacts" ],
+        "summary" : "Get a list of contact IDs, which have read at least one of the given assets",
+        "description" : "<p>Get a list of contact IDs, which have read at least one of the given assets.<pre>\n{\n\t\t\"assets\":[\"id\", ...],\n\t\t\"since\":\"timestamp\"\n}\n</pre>\n<p>The parameter <code>since</code> is not yet implemented.",
+        "operationId" : "filterContactsByAssets",
+        "consumes" : [ "application/json;charset=utf-8" ],
+        "produces" : [ "application/json;charset=utf-8" ],
+        "parameters" : [ {
+          "name" : "tenantIdentifier",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "pattern" : "[0-9]+"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "description" : "asset list",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "callback",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        },
+        "security" : [ {
+          "Authorization" : [ ]
+        } ]
+      }
+    },
+    "/v1/contacts/{tenantIdentifier}/filter/journeys" : {
+      "post" : {
+        "tags" : [ "Contacts" ],
+        "summary" : "Get a list of contact IDs, which have participated in one of the given journeys",
+        "description" : "<p>Get a list of contact IDs, which have participated in one of the given journeys.<pre>\n{\n\t\t\"journeys\":[\"id\", ...],\n}\n</pre>\n",
+        "operationId" : "filterContactsByJourneys",
+        "consumes" : [ "application/json;charset=utf-8" ],
+        "produces" : [ "application/json;charset=utf-8" ],
+        "parameters" : [ {
+          "name" : "tenantIdentifier",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "pattern" : "[0-9]+"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "description" : "journey list",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "callback",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        },
+        "security" : [ {
+          "Authorization" : [ ]
+        } ]
+      }
+    },
+    "/v1/external/contacts" : {
+      "get" : {
+        "tags" : [ "Contacts" ],
+        "summary" : "Get a list of all contacts with external property name from a tenant of the logged in user",
+        "description" : "<p>Get a list of contacts from a tenant.",
+        "operationId" : "getContacts",
+        "produces" : [ "application/json;charset=utf-8" ],
+        "parameters" : [ {
+          "name" : "callback",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        },
+        "security" : [ {
+          "Authorization" : [ ]
+        } ]
+      }
+    },
+    "/v1/journeys/{journeyIdentifier}" : {
+      "get" : {
+        "tags" : [ "Journeys" ],
+        "summary" : "Get the meta data of the given journey",
+        "description" : "<p>Get the meta data of the given journey.",
+        "operationId" : "getJourney",
+        "produces" : [ "application/json;charset=utf-8" ],
+        "parameters" : [ {
+          "name" : "journeyIdentifier",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "pattern" : "j_[a-zA-Z0-9]+"
+        }, {
+          "name" : "callback",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        },
+        "security" : [ {
+          "Authorization" : [ ]
+        } ]
+      },
+      "put" : {
+        "tags" : [ "Journeys" ],
+        "operationId" : "updateJourney",
+        "consumes" : [ "application/json;charset=utf-8" ],
+        "produces" : [ "application/json;charset=utf-8" ],
+        "parameters" : [ {
+          "name" : "journeyIdentifier",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "pattern" : "j_[a-zA-Z0-9]+"
+        }, {
+          "name" : "callback",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        },
+        "security" : [ {
+          "Authorization" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Journeys" ],
+        "operationId" : "deleteJourney",
+        "produces" : [ "application/json;charset=utf-8" ],
+        "parameters" : [ {
+          "name" : "journeyIdentifier",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "pattern" : "j_[a-zA-Z0-9]+"
+        }, {
+          "name" : "callback",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        },
+        "security" : [ {
+          "Authorization" : [ ]
+        } ]
+      }
+    },
+    "/v1/journeys/{journeyIdentifier}/image" : {
+      "get" : {
+        "tags" : [ "Journeys" ],
+        "summary" : "Get an image of the journey map as HTML page",
+        "description" : "<p>Get an image of the journey map as HTML page. The image is rendered in DMC once the journey is saved.",
+        "operationId" : "getJourneyMapImage",
+        "produces" : [ "text/html;charset=utf-8" ],
+        "parameters" : [ {
+          "name" : "journeyIdentifier",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "pattern" : "j_[a-zA-Z0-9]+"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        },
+        "security" : [ {
+          "Authorization" : [ ]
+        } ]
+      }
+    },
+    "/v1/journeys/{journeyIdentifier}/intro/{assetId}" : {
+      "get" : {
+        "tags" : [ "Journeys" ],
+        "summary" : "Process a journey with a given asset ID",
+        "description" : "<p>Get the very first level of this journey as an introduction. The given asset ID is actually ignored.<p>The list of already seen assets etc. is ignored in this case, means: the list of recommended assets is always he same.",
+        "operationId" : "getIntroduction",
+        "produces" : [ "application/json;charset=utf-8" ],
+        "parameters" : [ {
+          "name" : "journeyIdentifier",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "pattern" : "j_[a-zA-Z0-9]+"
+        }, {
+          "name" : "assetId",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "pattern" : "[0-9_]+"
+        }, {
+          "name" : "callback",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        },
+        "security" : [ {
+          "Authorization" : [ ]
+        } ]
+      }
+    },
+    "/v1/journeys/{journeyIdentifier}/next/{assetId}" : {
+      "get" : {
+        "tags" : [ "Journeys" ],
+        "summary" : "Process a journey with a given asset ID",
+        "description" : "<p>Process a journey with a given asset ID and get all next recommendations of this asset according to the paths in this journey. This does not consider, whether a contact already has seen these documents or whether a contact may have been on that journey level already. The list may be compared to the list of seen documents of a given contact.",
+        "operationId" : "getRecommendation",
+        "produces" : [ "application/json;charset=utf-8" ],
+        "parameters" : [ {
+          "name" : "journeyIdentifier",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "pattern" : "j_[a-zA-Z0-9]+"
+        }, {
+          "name" : "assetId",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "pattern" : "[0-9_]+"
+        }, {
+          "name" : "callback",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        },
+        "security" : [ {
+          "Authorization" : [ ]
+        } ]
+      }
+    },
+    "/v1/journeys/{tenantIdentifier}" : {
+      "get" : {
+        "tags" : [ "Journeys" ],
+        "summary" : "Get all registered journeys for a given tenant",
+        "description" : "<p>Get a list of all journeys defined by this tenant.",
+        "operationId" : "getJourneys",
+        "produces" : [ "application/json;charset=utf-8" ],
+        "parameters" : [ {
+          "name" : "tenantIdentifier",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "pattern" : "[0-9]+"
+        }, {
+          "name" : "callback",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        },
+        "security" : [ {
+          "Authorization" : [ ]
+        } ]
+      },
+      "post" : {
+        "tags" : [ "Journeys" ],
+        "operationId" : "createJourney",
+        "consumes" : [ "application/json;charset=utf-8" ],
+        "produces" : [ "application/json;charset=utf-8" ],
+        "parameters" : [ {
+          "name" : "tenantIdentifier",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "pattern" : "[0-9]+"
+        }, {
+          "name" : "callback",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        },
+        "security" : [ {
+          "Authorization" : [ ]
+        } ]
+      }
+    },
+    "/v1/journeys/{tenantIdentifier}/active" : {
+      "get" : {
+        "tags" : [ "Journeys" ],
+        "summary" : "Get all active registered journeys for a given tenant",
+        "description" : "<p>Get a list of all active journeys defined by this tenant: state is RELEASED (1) and the flight end has not yet reached.",
+        "operationId" : "getActiveJourneys",
+        "produces" : [ "application/json;charset=utf-8" ],
+        "parameters" : [ {
+          "name" : "tenantIdentifier",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "pattern" : "[0-9]+"
+        }, {
+          "name" : "callback",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        },
+        "security" : [ {
+          "Authorization" : [ ]
+        } ]
+      }
+    },
+    "/v1/journeys/{tenantIdentifier}/filter/contacts" : {
+      "post" : {
+        "tags" : [ "Journeys" ],
+        "summary" : "Get a list of contact IDs, which have participated in one of these journeys",
+        "description" : "<p>Get a list of contact IDs, which have participated in one of these journeys.<pre>\r\n{\r\n\t\t\"journeys\":[\"id\", ...],\r\n\t\t\"since\":\"timestamp\"\r\n}\r\n</pre>\r\n<p>The parameter <code>since</code> is not yet implemented.",
+        "operationId" : "filterContactsByJourneys",
+        "consumes" : [ "application/json;charset=utf-8" ],
+        "produces" : [ "application/json;charset=utf-8" ],
+        "parameters" : [ {
+          "name" : "tenantIdentifier",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "pattern" : "[0-9]+"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "description" : "journey list",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "callback",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        },
+        "security" : [ {
+          "Authorization" : [ ]
+        } ]
+      }
+    },
+    "/v1/mailservice/cta/{assetid}/{journeyid}/{contactIdentifier}" : {
+      "post" : {
+        "tags" : [ "E-Mail" ],
+        "summary" : "Post a call to action request",
+        "description" : "<p>The given contact within the given journey has requested for a callback which now will be send to a distribution list / mailing list of the sales department of this tenant. The asset which caused the request for a callback will also be included. Data includes phone number, date and time and a flag whether to get back by mail or by phone.",
+        "operationId" : "calltoaction",
+        "consumes" : [ "application/json;charset=utf-8" ],
+        "produces" : [ "application/json;charset=utf-8" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "CTA Info",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "assetid",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "journeyid",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "contactIdentifier",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "pattern" : "c_[a-zA-Z0-9]+"
+        }, {
+          "name" : "callback",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        }
+      }
+    },
+    "/v1/mailservice/doiconfirm/{target}" : {
+      "get" : {
+        "tags" : [ "E-Mail" ],
+        "summary" : "Send a DOI confirmation mail to the given target / recipient",
+        "description" : "<p>Send a DOI confirmation mail to the given target / recipient.<p>The path parameter is a URL encoded base64 String of a JSON Object, containing the relevant information to<ul><li><p>Register the contact as 'unconfirmed'.<li><p>Send an e-mail to the recipient with the document link<li><p>Make a redirect to a \"drop-off\" page to show after form submit in the browwser.<li><p>Store all legally necessery information about the form submit in the contacts record.</ul><p>The drop off page link (<code>linkid</code>) must be absolute! Format of the encoded path parameter:<pre>{\r\n\t\t\"docid\": {asset ID},\r\n\t\t\"linkid\": {fully qualified URL}, \r\n\t\t\"macc\": {DMC macc ID, same as tenant ID}, \r\n\t\t\"pfn\": {first name recipient}\r\n\t\t\"pln\": {last name recipient},\r\n\t\t\"email\": {e-mail recipient}\r\n\t\t\"lang\": {template language}\r\n}\r\n</pre>\r\n<p>All parameters are mandatory. The <code>linkid</code> property <b>must be</b> a full qualified URL, WebCache cannot resolve DMC link ids (old variant).<p>The mail requires a template to be present either on tenant level or as default. The service is doing certain verifictaions:<ul><li><p>The asset must exist<li><p>It must be owned by the given tenant (macc id)<li><p>The tenant must exist<li><p>A template must exist, see above</ul><p>If this fails, no e-mail is send out.<p>&nbsp<p><b>EU</b>: The e-mail must not be an advetrisement or advertorial (\"Kein werblicher Charakter\")!<p>&nbsp<p><b>This service is not protected currently and thus vulnerable</n>",
+        "operationId" : "sendDOIConfirmation",
+        "produces" : [ "text/html;charset=utf-8" ],
+        "parameters" : [ {
+          "name" : "target",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "callback",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        }
+      }
+    },
+    "/v1/mailservice/placeholders" : {
+      "post" : {
+        "tags" : [ "E-Mail" ],
+        "summary" : "Retrieve a map of values according to the given document, sender and recipient values",
+        "description" : "<p>Just only get a map of the placeholders with their current values for a client to generate it's own\r\nservice.\r\nThis is the placeholder map for a sharing e-mail, so plausis are the same as with sendSharingMail.<p>The POST body is the same as for endpoint '<code>share</code>':<pre>\r\n{\r\n\t\t\"contactid\":\"id of current sender contact>\",\r\n\t\t\"sender\":{\r\n\t\t\t\"firstname\":\"Sender First Name\",\r\n\t\t\t\"lastname\":\"Sender Last Name\",\r\n\t\t\t\"email\":\"Sender e-mail address\"\r\n\t\t},\r\n\t\t\"recipient\":{\r\n\t\t\t\"firstname\":\"Recipient First Name\",\r\n\t\t\t\"lastname\":\"Recipient Last Name\",\r\n\t\t\t\"email\":\"Recipient e-mail address\"\r\n\t\t},\r\n\t\t\"docid\":\"id of rshared document\",\r\n\t\t\"journeyid\":\"ID of running journey\",\r\n\t\t\"language\":\"recipients language\",\r\n\t\t\"message\":\"plain text message\"\r\n}\r\n</pre>\r\n<p>If contactid is set, sender details are ignored. If no contactid is set, sender details are mandatory.\r\nIn other words: at least one is mandatory, contactid rules if both are given.<p>&nbsp<p><b>This map includes the personalized link for this pair of sender /recipient to the Reader with the given document</b>. This link may be copied into any other e-mail client.",
+        "operationId" : "getPlaceholders",
+        "consumes" : [ "application/json;charset=utf-8" ],
+        "produces" : [ "application/json;charset=utf-8" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "mailinfo",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "callback",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        },
+        "security" : [ {
+          "Authorization" : [ ]
+        } ]
+      }
+    },
+    "/v1/mailservice/redirect/{contactid}" : {
+      "get" : {
+        "tags" : [ "E-Mail" ],
+        "operationId" : "registerDOIConfirm",
+        "produces" : [ "text/html" ],
+        "parameters" : [ {
+          "name" : "contactid",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "t",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "callback",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        }
+      }
+    },
+    "/v1/mailservice/reengage" : {
+      "post" : {
+        "tags" : [ "E-Mail" ],
+        "summary" : "Send a reminder to a recipient",
+        "description" : "<p>A recipient is sent a reminder to open the received sharing e-mail\r\n.<pre>\r\n{\r\n\t\t\"contactid\":\"id of current sender contact>\",\r\n\t\t\"sender\":{\r\n\t\t\t\"firstname\":\"Sender First Name\",\r\n\t\t\t\"lastname\":\"Sender Last Name\",\r\n\t\t\t\"email\":\"Sender e-mail address\"\r\n\t\t},\r\n\t\t\"recipient\":{\r\n\t\t\t\"firstname\":\"Recipient First Name\",\r\n\t\t\t\"lastname\":\"Recipient Last Name\",\r\n\t\t\t\"email\":\"Recipient e-mail address\"\r\n\t\t},\r\n\t\t\"docid\":\"id of rshared document\",\r\n\t\t\"journeyid\":\"ID of running journey\",\r\n\t\t\"language\":\"recipients language\",\r\n\t\t\"message\":\"plain text message\"\r\n</pre>\r\n<p>If contactid is set, sender details are ignored. If no contactid is set, sender details are mandatory.\r\nIn other words: at least one is mandatory, contactid rules if both are given.<p>The value of <code>docid</code> may also be a valid array of document IDs, in which case the mail will contain a list of all of these documents:<pre>\t\t\"docid\":[\"id\", \"id\", \"id\", ... ],\r\n</pre><p>The given <code>contactid</code> may also be a valid userid (not the login name/e-mail) of a user.",
+        "operationId" : "sendReminderMail",
+        "consumes" : [ "application/json;charset=utf-8" ],
+        "produces" : [ "application/json;charset=utf-8" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "mailinfo",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "callback",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        },
+        "security" : [ {
+          "Authorization" : [ ]
+        } ]
+      }
+    },
+    "/v1/mailservice/share" : {
+      "post" : {
+        "tags" : [ "E-Mail" ],
+        "summary" : "Send a sharing e-mail from a sender to e recipient",
+        "description" : "<p>A given contact is sending out an e-mail to share one particular document with a recipient\r\n.<pre>\r\n{\r\n\t\t\"contactid\":\"id of current sender contact>\",\r\n\t\t\"sender\":{\r\n\t\t\t\"firstname\":\"Sender First Name\",\r\n\t\t\t\"lastname\":\"Sender Last Name\",\r\n\t\t\t\"email\":\"Sender e-mail address\"\r\n\t\t},\r\n\t\t\"recipient\":{\r\n\t\t\t\"firstname\":\"Recipient First Name\",\r\n\t\t\t\"lastname\":\"Recipient Last Name\",\r\n\t\t\t\"email\":\"Recipient e-mail address\"\r\n\t\t},\r\n\t\t\"docid\":\"id of rshared document\",\r\n\t\t\"journeyid\":\"ID of running journey\",\r\n\t\t\"language\":\"recipients language\",\r\n\t\t\"message\":\"plain text message\"\r\n}</pre>\r\n<p>If contactid is set, sender details are ignored. If no contactid is set, sender details are mandatory.\r\nIn other words: at least one is mandatory, contactid rules if both are given.<p>The value of <code>docid</code> may also be a valid array of document IDs, in which case the mail will contain a list of all of these documents:<pre>\t\t\"docid\":[\"id\", \"id\", \"id\", ... ],\r\n</pre><p>The given <code>contactid</code> may also be a valid userid (not the login name/e-mail) of a user.",
+        "operationId" : "sendSharingMail",
+        "consumes" : [ "application/json;charset=utf-8" ],
+        "produces" : [ "application/json;charset=utf-8" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "mailinfo",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "callback",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        }
+      }
+    },
+    "/v1/myasset/copy/{assetid}/{target}" : {
+      "put" : {
+        "tags" : [ "SEW, My Assets" ],
+        "summary" : "Copy an asset to a private folder. ",
+        "description" : "<p>Copy an asset to a private folder:<p>Given is the asset ID and the new target folder of the asset",
+        "operationId" : "copyAssetToFolder",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "assetid",
+          "in" : "path",
+          "description" : "ID of the Asset",
+          "required" : true,
+          "type" : "string",
+          "pattern" : "[0-9]+_[0-9]+"
+        }, {
+          "name" : "target",
+          "in" : "path",
+          "description" : "ID of target Folder",
+          "required" : true,
+          "type" : "string",
+          "pattern" : "[0-9a-zA-Z_\\-]+"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        },
+        "security" : [ {
+          "Authorization" : [ ]
+        } ]
+      }
+    },
+    "/v1/myasset/move/{assetid}/{target}" : {
+      "put" : {
+        "tags" : [ "SEW, My Assets" ],
+        "summary" : "Move an asset to another folder. ",
+        "description" : "<p>Move an asset to another folder:<p>Given is the asset ID and the new target folder of the asset",
+        "operationId" : "moveAssetToFolder",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "assetid",
+          "in" : "path",
+          "description" : "ID of the Asset",
+          "required" : true,
+          "type" : "string",
+          "pattern" : "[0-9]+_[0-9]+"
+        }, {
+          "name" : "target",
+          "in" : "path",
+          "description" : "ID of target Folder",
+          "required" : true,
+          "type" : "string",
+          "pattern" : "[0-9a-zA-Z_\\-]+"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        },
+        "security" : [ {
+          "Authorization" : [ ]
+        } ]
+      }
+    },
+    "/v1/myasset/share/{assetid}/{shareflag}" : {
+      "put" : {
+        "tags" : [ "SEW, My Assets" ],
+        "summary" : "Make the given asset shareable (publicly readable) or private.",
+        "description" : "<p>Make the given asset shareable (publicly readable) or private.",
+        "operationId" : "toggleShare",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "assetid",
+          "in" : "path",
+          "description" : "ID of the asset to toggle share",
+          "required" : true,
+          "type" : "string",
+          "pattern" : "[0-9]+_[0-9]+"
+        }, {
+          "name" : "shareflag",
+          "in" : "path",
+          "description" : "either 'PUBLIC' or 'PRIVATE'",
+          "required" : true,
+          "type" : "string",
+          "pattern" : "(PUBLIC|PRIVATE)",
+          "enum" : [ "PUBLIC", "PRIVATE" ]
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        },
+        "security" : [ {
+          "Authorization" : [ ]
+        } ]
+      }
+    },
+    "/v1/myasset/{folderid}" : {
+      "post" : {
+        "tags" : [ "SEW, My Assets" ],
+        "summary" : "Upload an asset to a private (Sub)Folder. ",
+        "description" : "<p>Upload a file via Multipart Formdata to a given folder. This endpoint accepts <code>multipart_form_data</code> encoded file upload. This can't be emulated via swagger currently.<p>Use a small HTML like this to test:<p><pre>\n&lt;form action=\"https://wcdev.brandmaker.com/services/v1/myasset/{folderid}\" method=\"post\" enctype=\"multipart/form-data\"> \n    &lt;p>Description &lt;input type=\"text\" name=\"description\" />\n    &lt;p>&lt;input type=\"file\" name=\"file\" />\n    &lt;p>&lt;input type=\"submit\" />\n&lt;/form>\n</pre></p><p>If the form submits the basic contact data <code>firstname</code>, <code>lastname</code> and <code>email</code>, a contact is created. In this case, the returned JSON also contains a property <code>contact</code> which contains the newly created or referenced contact data and a property <code>personalizedlink</code> which contains a viewer link for this contact to the given asset. This can be used in engagement mails.<p><br><b>Attention (1):</b> The asset is intentionally <b>not shareable</b>, it is <b>private</b>.<br>It's up to the caller, to set it to <code>PUBLIC</code> by the use of the accordng endpoint in this API! This is not a \"God-Method\"!<p><br><b>Attention (2):</b> This endpoint needs a valid API token for a valid WebCache user and is running in the context of this particular user!",
+        "operationId" : "uploadAssetToFolder",
+        "consumes" : [ "multipart/form-data" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "folderid",
+          "in" : "path",
+          "description" : "ID of target Folder",
+          "required" : true,
+          "type" : "string",
+          "pattern" : "[0-9a-zA-Z_\\-]+"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        },
+        "security" : [ {
+          "Authorization" : [ ]
+        } ]
+      }
+    },
+    "/v1/myasset/{folderid}/{assetid}" : {
+      "put" : {
+        "tags" : [ "SEW, My Assets" ],
+        "summary" : "Modify an asset in a private (Sub)Folder. ",
+        "description" : "<p>Modify an asset via Multipart Formdata in a given folder. This endpoint accepts <code>multipart_form_data</code> encoded file upload. Thiscan't be emulated via swagger currently.<p>Use a small HTML like this to test:<p><pre>\n&lt;form action=\"https://wcdev.brandmaker.com/services/v1/myasset/{folderid}\" method=\"post\" enctype=\"multipart/form-data\"> \n    &lt;p>Description &lt;input type=\"text\" name=\"description\" />\n    &lt;p>&lt;input type=\"file\" name=\"file\" />\n    &lt;p>&lt;input type=\"submit\" />\n&lt;/form>\n</pre></p><p>If the form submits the basic contact data <code>firstname</code>, <code>lastname</code> and <code>email</code>, a contact is created. In this case, the returned JSON also contains a property <code>contact</code> which contains the newly created or referenced contact data and a property <code>personalizedlink</code> which contains a viewer link for this contact to the given asset. This can be used in engagement mails.<p><br><b>Attention (1):</b> The asset is intentionally <b>not shareable</b>, it is <b>private</b>.<br>It's up to the caller, to set it to <code>PUBLIC</code> by the use of the accordng endpoint in this API! This is not a \"God-Method\"!<p><br><b>Attention (2):</b> This endpoint needs a valid API token for a valid WebCache user and is running in the context of this particular user!",
+        "operationId" : "updateAsset",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "folderid",
+          "in" : "path",
+          "description" : "folderid",
+          "required" : true,
+          "type" : "string",
+          "pattern" : "[0-9a-zA-Z_\\-]+"
+        }, {
+          "name" : "assetid",
+          "in" : "path",
+          "description" : "assetid",
+          "required" : true,
+          "type" : "string",
+          "pattern" : "[0-9]+_[0-9]+"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        },
+        "security" : [ {
+          "Authorization" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "SEW, My Assets" ],
+        "summary" : "Delete an asset from a private (Sub)Folder. ",
+        "description" : "<p>Irrevocably delete a given asset from the private folder tree. <p>This operation may fail with an HTTP coode of <code>NOT_ACCEPTABLE</code>  if the given asset is in use or referenced by another node!",
+        "operationId" : "deleteAsset",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "folderid",
+          "in" : "path",
+          "description" : "folderid",
+          "required" : true,
+          "type" : "string",
+          "pattern" : "[0-9a-zA-Z_\\-]+"
+        }, {
+          "name" : "assetid",
+          "in" : "path",
+          "description" : "assetid",
+          "required" : true,
+          "type" : "string",
+          "pattern" : "[0-9]+_[0-9]+"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        },
+        "security" : [ {
+          "Authorization" : [ ]
+        } ]
+      }
+    },
+    "/v1/myfolder" : {
+      "get" : {
+        "tags" : [ "SEW, My Assets" ],
+        "summary" : "Get the private folder tree of the given user like a topic tree",
+        "description" : "<p>Get the entire private folder structure of the logged in user as topic tree.<p>Response is the entire topic tree of this user:<pre>[\n  {\n    \"identifier\": \"private\",\n    \"name\": \"My Assets\",\n    \"description\": \"\",\n    \"imageurl\": null,\n    \"dataurl\": null,\n    \"path\": \"/\",\n    \"tenantIdentifier\": \"1\",\n    \"assetcount\": 0,\n    \"subtopics\": [\n      {\n        \"identifier\": \"560_1495207383940\",\n        \"name\": \"Unterordner 2\",\n        \"description\": \"\",\n        \"imageurl\": null,\n        \"dataurl\": null,\n        \"path\": \"/private/\",\n        \"tenantIdentifier\": \"1\",\n        \"assetcount\": 0,\n        \"subtopics\": [],\n        \"names\": [\n          {\n            \"lang\": \"de\",\n            \"name\": \"Unterordner 2\"\n          },\n          {\n            \"lang\": \"en\",\n            \"name\": \"Unterordner 2\"\n          }\n        ]\n      },\n\t\t.....\n</pre><p>The path is mapped to the virtual path \"/private\" in order to not disclose any UIDs here. Please be aware that the path \"/private\" doesn't literally exists but is mapped to the logged in users private path.",
+        "operationId" : "getFolders",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        },
+        "security" : [ {
+          "Authorization" : [ ]
+        } ]
+      }
+    },
+    "/v1/myfolder/simple/{folderid}" : {
+      "get" : {
+        "tags" : [ "SEW, My Assets" ],
+        "summary" : "Get all assets in this folders level. ",
+        "description" : "Get all Assets as JSON Array within this folders level. This method is not recursive and will only provide assets, no subfolder entries. The resulting JSON Array contains entries of the same structure as the corresponding method <code>/v1/topics/{tenantIdentifier}/{topicId}/assets</code>",
+        "operationId" : "getFolderAssetsSimple",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "folderid",
+          "in" : "path",
+          "description" : "folderid",
+          "required" : true,
+          "type" : "string",
+          "pattern" : "[0-9a-zA-Z_\\-]+"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        },
+        "security" : [ {
+          "Authorization" : [ ]
+        } ]
+      }
+    },
+    "/v1/myfolder/{folderid}" : {
+      "get" : {
+        "tags" : [ "SEW, My Assets" ],
+        "summary" : "Get all assets in this folders level. ",
+        "description" : "Get all Assets as JSON Array within this folders level. This method is not recursive and will only provide assets, no subfolder entries. The resulting JSON Array contains entries of the same structure as the corresponding method <code>/v1/topics/{tenantIdentifier}/{topicId}/assets</code>",
+        "operationId" : "getFolderAssets",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "folderid",
+          "in" : "path",
+          "description" : "folderid",
+          "required" : true,
+          "type" : "string",
+          "pattern" : "[0-9a-zA-Z_\\-]+"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        },
+        "security" : [ {
+          "Authorization" : [ ]
+        } ]
+      },
+      "post" : {
+        "tags" : [ "SEW, My Assets" ],
+        "summary" : "Create a private (sub)folder. ",
+        "description" : "<p>Create a new sub folder in the given folder.<p>The unique ID of the parent folder must be set on the path.<p>The name and further attributes are passed as plain JSON String. The attribute \"name\" is mandatory:<pre>{\n\t\t\"name\":\"My special Documents\",\n\t\t...\n}</pre><p>The name of the folder is an attribute and may contain any valid UTF-8 character. A new unique random ID is generated for each new folder.<p>Response is the entire topic tree of this user:<pre>[\n  {\n    \"identifier\": \"u_1unsthf\",\n    \"name\": \"u_1unsthf\",\n    \"description\": \"\",\n    \"imageurl\": null,\n    \"dataurl\": null,\n    \"path\": null,\n    \"tenantIdentifier\": \"1\",\n    \"assetcount\": 0,\n    \"subtopics\": [\n      {\n        \"identifier\": \"560_1495207383940\",\n        \"name\": \"Unterordner 2\",\n        \"description\": \"\",\n        \"imageurl\": null,\n        \"dataurl\": null,\n        \"path\": null,\n        \"tenantIdentifier\": \"1\",\n        \"assetcount\": 0,\n        \"subtopics\": [],\n        \"names\": [\n          {\n            \"lang\": \"de\",\n            \"name\": \"Unterordner 2\"\n          },\n          {\n            \"lang\": \"en\",\n            \"name\": \"Unterordner 2\"\n          }\n        ]\n      },\n\t\t.....\n</pre>",
+        "operationId" : "createFolder",
+        "consumes" : [ "application/json;charset=utf-8" ],
+        "produces" : [ "application/json;charset=utf-8" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "valueMap",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "folderid",
+          "in" : "path",
+          "description" : "folderid",
+          "required" : true,
+          "type" : "string",
+          "pattern" : "[0-9a-zA-Z_\\-]+"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        },
+        "security" : [ {
+          "Authorization" : [ ]
+        } ]
+      },
+      "put" : {
+        "tags" : [ "SEW, My Assets" ],
+        "summary" : "Modifiy / Update a private (sub)folder. ",
+        "description" : "<p>Update a given Folder with a new set of properties.<p>The unique ID of the folder must be set on the path.<p>The name and further attributes are passed as plain JSON String. The attribute \"name\" is mandatory:<pre>{\n\t\t\"name\":\"My special Documents\",\n\t\t...\n}</pre><p>The name of the folder is an attribute and may contain any valid UTF-8 character. A new unique random ID is generated for each new folder.<p>Response is the entire topic tree of this user:<pre>[\n  {\n    \"identifier\": \"u_1unsthf\",\n    \"name\": \"u_1unsthf\",\n    \"description\": \"\",\n    \"imageurl\": null,\n    \"dataurl\": null,\n    \"path\": null,\n    \"tenantIdentifier\": \"1\",\n    \"assetcount\": 0,\n    \"subtopics\": [\n      {\n        \"identifier\": \"560_1495207383940\",\n        \"name\": \"Unterordner 2\",\n        \"description\": \"\",\n        \"imageurl\": null,\n        \"dataurl\": null,\n        \"path\": null,\n        \"tenantIdentifier\": \"1\",\n        \"assetcount\": 0,\n        \"subtopics\": [],\n        \"names\": [\n          {\n            \"lang\": \"de\",\n            \"name\": \"Unterordner 2\"\n          },\n          {\n            \"lang\": \"en\",\n            \"name\": \"Unterordner 2\"\n          }\n        ]\n      },\n\t\t.....\n</pre>",
+        "operationId" : "updateFolder",
+        "consumes" : [ "application/json;charset=utf-8" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "valueMap",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "folderid",
+          "in" : "path",
+          "description" : "folderid",
+          "required" : true,
+          "type" : "string",
+          "pattern" : "[0-9a-zA-Z_\\-]+"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        },
+        "security" : [ {
+          "Authorization" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "SEW, My Assets" ],
+        "summary" : "Delete a private (sub)folder and all its contents (!). ",
+        "description" : "<p>Irrevocably delete a folder and all it's subfolders and contents.<p>The unique ID of the folder must be set on the path.<p>It's up to the client, to ask the user whether he really wants that, the deletion will take place immediately and w/o any further loop-back.<p>The root folder (\"My Assets\") cannot be deleted.",
+        "operationId" : "deleteFolder",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "folderid",
+          "in" : "path",
+          "description" : "folderid",
+          "required" : true,
+          "type" : "string",
+          "pattern" : "[0-9a-zA-Z_\\-]+"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        },
+        "security" : [ {
+          "Authorization" : [ ]
+        } ]
+      }
+    },
+    "/v1/reports/columns/{reportname}" : {
+      "get" : {
+        "tags" : [ "Reports" ],
+        "summary" : "List available reports",
+        "description" : "<p>List all available reports and their columns as JSON",
+        "operationId" : "getReportColumns",
+        "produces" : [ "application/json;charset=utf-8" ],
+        "parameters" : [ {
+          "name" : "callback",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "reportname",
+          "in" : "path",
+          "description" : "Name of an existing report",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        }
+      }
+    },
+    "/v1/reports/data/{reportname}/{columns}" : {
+      "get" : {
+        "tags" : [ "Reports" ],
+        "summary" : "Retrieve a report from the API, limit the result to the given columns.",
+        "description" : "<p>Retrieve a report from the API, limit the result to the given columns. The columns parameter is a comma separated list of valid column names or '*' for all",
+        "operationId" : "getReportData",
+        "produces" : [ "application/json;charset=utf-8" ],
+        "parameters" : [ {
+          "name" : "callback",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "reportname",
+          "in" : "path",
+          "description" : "Name of an existing report",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "columns",
+          "in" : "path",
+          "description" : "List of requested columns from the report separated by ',' or '*' for all columns to be returned",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "since",
+          "in" : "query",
+          "description" : "Date from which on records should be fetched. If ommitted, all records are passed",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "num",
+          "in" : "query",
+          "description" : "number of records to fetch",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "from",
+          "in" : "query",
+          "description" : "starting record number, defaults to 0",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        }
+      }
+    },
+    "/v1/reports/list" : {
+      "get" : {
+        "tags" : [ "Reports" ],
+        "summary" : "List available reports",
+        "description" : "<p>List all available reports as JSON",
+        "operationId" : "getReports",
+        "produces" : [ "application/json;charset=utf-8" ],
+        "parameters" : [ {
+          "name" : "callback",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        }
+      }
+    },
+    "/v1/statistics/activecontacts/{limit}/{maxNumber}/{timeframe}/{sort}" : {
+      "get" : {
+        "tags" : [ "Statistics" ],
+        "summary" : "Retrieve contact hitlist by timeframe and sort by kpi for the logged in user.",
+        "description" : "<p>Retrieve contact hitlist by timeframe and sort by kpi for this user.",
+        "operationId" : "getContactHitlist",
+        "produces" : [ "application/json;charset=utf-8" ],
+        "parameters" : [ {
+          "name" : "callback",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "limit",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "pattern" : "[0-9]+"
+        }, {
+          "name" : "maxNumber",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "pattern" : "[0-9]+"
+        }, {
+          "name" : "timeframe",
+          "in" : "path",
+          "description" : "Time frame",
+          "required" : true,
+          "type" : "string",
+          "enum" : [ "all", "day", "week", "month", "year" ]
+        }, {
+          "name" : "sort",
+          "in" : "path",
+          "description" : "Sort by",
+          "required" : true,
+          "type" : "string",
+          "enum" : [ "assets", "pv", "cv", "dl" ]
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        },
+        "security" : [ {
+          "Authorization" : [ ]
+        } ]
+      }
+    },
+    "/v1/statistics/assets/{contactIdentifier}" : {
+      "post" : {
+        "tags" : [ "Statistics" ],
+        "summary" : "Get statistics for a contact and a list of assets",
+        "description" : "<p>Get statistics for a contact and a list of assets. This may return an empty object if there is no data or the assets are not assigned to this contact.",
+        "operationId" : "getAssetListStats",
+        "consumes" : [ "application/json;charset=utf-8" ],
+        "produces" : [ "application/json;charset=utf-8" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "Assets",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "contactIdentifier",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "pattern" : "__anon__|[cu]_[a-zA-Z0-9]+"
+        }, {
+          "name" : "public",
+          "in" : "query",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "name" : "callback",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        },
+        "security" : [ {
+          "Authorization" : [ ]
+        } ]
+      }
+    },
+    "/v1/statistics/notifications" : {
+      "get" : {
+        "tags" : [ "Statistics" ],
+        "summary" : "Retrieve the latest statistics event notifications for the logged in user.",
+        "description" : "<p>Retrieve the latest statistics event notifications for this user.<p>The notifications are deleted after the call to this endpoint.",
+        "operationId" : "getNotifications",
+        "produces" : [ "application/json;charset=utf-8" ],
+        "parameters" : [ {
+          "name" : "callback",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        },
+        "security" : [ {
+          "Authorization" : [ ]
+        } ]
+      }
+    },
+    "/v1/statistics/timeline/{filter}/{limit}/{maxNumber}" : {
+      "get" : {
+        "tags" : [ "Statistics" ],
+        "summary" : "Get the timeline of events for all contacts of the currently logged in user.",
+        "description" : "<p>Get the timeline of events for all contacts of the currently logged in user.",
+        "operationId" : "getTimelineForContacts",
+        "produces" : [ "application/json;charset=utf-8" ],
+        "parameters" : [ {
+          "name" : "callback",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "filter",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "pdid",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "cid",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "asc",
+          "in" : "query",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "name" : "limit",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "pattern" : "[0-9]+"
+        }, {
+          "name" : "maxNumber",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "pattern" : "[0-9]+"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        },
+        "security" : [ {
+          "Authorization" : [ ]
+        } ]
+      }
+    },
+    "/v1/statistics/{assetid}" : {
+      "get" : {
+        "tags" : [ "Statistics" ],
+        "summary" : "Get Stats for a particular asset",
+        "description" : "<p>Get basic statistic data for a particular asset. This may return an empty object if there is no data or the asset not assigned to this contact.",
+        "operationId" : "getAssetStatistics",
+        "produces" : [ "application/json;charset=utf-8" ],
+        "parameters" : [ {
+          "name" : "assetid",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "pattern" : "[0-9]+_[0-9]+"
+        }, {
+          "name" : "public",
+          "in" : "query",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "name" : "callback",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        },
+        "security" : [ {
+          "Authorization" : [ ]
+        } ]
+      }
+    },
+    "/v1/statistics/{assetid}/{contactIdentifier}/{start}/{len}/{asc}" : {
+      "get" : {
+        "tags" : [ "Statistics" ],
+        "summary" : "Get historical statistics for a specific asset for a contact",
+        "description" : "<p>Get basic statistic data for a particular asset. This may return an empty object if there is no data or the asset not assigned to this contact.<p>Sorted by last access date either ascending (asc=1) or descending (asc=0)",
+        "operationId" : "getAssetStatistics",
+        "produces" : [ "application/json;charset=utf-8" ],
+        "parameters" : [ {
+          "name" : "assetid",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "pattern" : "[0-9]+_[0-9]+"
+        }, {
+          "name" : "contactIdentifier",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "pattern" : "__anon__|[cu]_[a-zA-Z0-9]+"
+        }, {
+          "name" : "start",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "pattern" : "[0-9]+"
+        }, {
+          "name" : "len",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "pattern" : "[0-9]+"
+        }, {
+          "name" : "asc",
+          "in" : "path",
+          "description" : "Sort order",
+          "required" : true,
+          "type" : "string",
+          "enum" : [ "0", "1" ]
+        }, {
+          "name" : "public",
+          "in" : "query",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "name" : "callback",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        },
+        "security" : [ {
+          "Authorization" : [ ]
+        } ]
+      }
+    },
+    "/v1/statistics/{contactIdentifier}" : {
+      "get" : {
+        "tags" : [ "Statistics" ],
+        "summary" : "Get basic statistic data for a given contact.",
+        "description" : "<p>Get basic statistic data for a given contact.",
+        "operationId" : "getContactStatistics",
+        "produces" : [ "application/json;charset=utf-8" ],
+        "parameters" : [ {
+          "name" : "contactIdentifier",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "pattern" : "__anon__|[cu]_[a-zA-Z0-9]+"
+        }, {
+          "name" : "public",
+          "in" : "query",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "name" : "callback",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        },
+        "security" : [ {
+          "Authorization" : [ ]
+        } ]
+      }
+    },
+    "/v1/statistics/{contactIdentifier}/{assetid}" : {
+      "get" : {
+        "tags" : [ "Statistics" ],
+        "summary" : "Get Stats for a contact and a particular asset",
+        "description" : "<p>Get basic statistic data for a contact and a particular asset. This may return an empty object if there is no data or the asset not assigned to this contact.",
+        "operationId" : "getContactStatistics",
+        "produces" : [ "application/json;charset=utf-8" ],
+        "parameters" : [ {
+          "name" : "assetid",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "pattern" : "[0-9]+_[0-9]+"
+        }, {
+          "name" : "contactIdentifier",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "pattern" : "__anon__|[cu]_[a-zA-Z0-9]+"
+        }, {
+          "name" : "public",
+          "in" : "query",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "name" : "callback",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        },
+        "security" : [ {
+          "Authorization" : [ ]
+        } ]
+      }
+    },
+    "/v1/statistics/{contactIdentifier}/{start}/{len}/{asc}/{filter}" : {
+      "get" : {
+        "tags" : [ "Statistics" ],
+        "summary" : "Get basic statistic data for a given contact and all related assets, ordered by date, paged.",
+        "description" : "<p>Get basic statistic data for a given contact and all related assets, ordered by date, paged.<p>Sorted by last access date either ascending (asc=1) or descending (asc=0)",
+        "operationId" : "getContactStatisticsPaged",
+        "produces" : [ "application/json;charset=utf-8" ],
+        "parameters" : [ {
+          "name" : "contactIdentifier",
+          "in" : "path",
+          "description" : "contact ID",
+          "required" : true,
+          "type" : "string",
+          "pattern" : "__anon__|[cu]_[a-zA-Z0-9]+"
+        }, {
+          "name" : "start",
+          "in" : "path",
+          "description" : "start index for paging",
+          "required" : true,
+          "type" : "string",
+          "pattern" : "[0-9]+"
+        }, {
+          "name" : "len",
+          "in" : "path",
+          "description" : "number of items in page",
+          "required" : true,
+          "type" : "string",
+          "pattern" : "[0-9]+"
+        }, {
+          "name" : "asc",
+          "in" : "path",
+          "description" : "Sort order",
+          "required" : true,
+          "type" : "string",
+          "enum" : [ "0", "1" ]
+        }, {
+          "name" : "filter",
+          "in" : "path",
+          "description" : "filter out particular KPIs only",
+          "required" : true,
+          "type" : "string",
+          "default" : "ALL",
+          "pattern" : "(ASSETSOPENED|DOCVIEWS|PAGEVIEWS|DOWNLOADS|VISITS|MAILSEND|ALL)",
+          "enum" : [ "ASSETSOPENED", "DOCVIEWS", "PAGEVIEWS", "DOWNLOADS", "VISITS", "MAILSEND", "ALL" ]
+        }, {
+          "name" : "public",
+          "in" : "query",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "name" : "callback",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        },
+        "security" : [ {
+          "Authorization" : [ ]
+        } ]
+      }
+    },
+    "/v1/templateservice/template/{tenantidentifier}/{templatename}/{language}" : {
+      "get" : {
+        "tags" : [ "Tenant template services" ],
+        "summary" : "Get a template from the asset store of this tenant.",
+        "description" : "<p>Get a template from the asset store of this tenant, prefill placeholders with current values and return the content.<p>A 'template' is an valid html, css or javascript which may contain any of the defined placeholders. These get replaced by their actual values during response processing. <p>Currently, supported Templates are <code>'CTA', 'CTAREQUEST', 'CTACSS', 'DOI', 'FOOTER', 'LEGAL', 'OO', 'PWD', 'REENGAGE', 'REMIND', 'SHARE'</code>.<p>A list of all available templates is available via <code>/services/v1/templates</code><p>The template name <code>CTACSS</code> returns the according CSS for the Call To Action (CTA) form, not any html.",
+        "operationId" : "getTemplate",
+        "produces" : [ "text/html;charset=utf-8" ],
+        "parameters" : [ {
+          "name" : "tenantidentifier",
+          "in" : "path",
+          "description" : "tenantidentifier",
+          "required" : true,
+          "type" : "string",
+          "pattern" : "[0-9]+"
+        }, {
+          "name" : "templatename",
+          "in" : "path",
+          "description" : "The id of a template",
+          "required" : true,
+          "type" : "string",
+          "pattern" : "(CTA|CTAREQUEST|CTACSS|DOI|FOOTER|LEGAL|OO|PWD|REENGAGE|REMIND|SHARE)",
+          "enum" : [ "CTA", "CTAREQUEST", "CTACSS", "DOI", "FOOTER", "LEGAL", "OO", "PWD", "REENGAGE", "REMIND", "SHARE" ]
+        }, {
+          "name" : "language",
+          "in" : "path",
+          "description" : "One of de, en, ru or no",
+          "required" : true,
+          "type" : "string",
+          "pattern" : "(de|en|ru|no)",
+          "enum" : [ "de", "en", "ru", "no" ]
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        }
+      }
+    },
+    "/v1/templateservice/templates" : {
+      "get" : {
+        "tags" : [ "Tenant template services" ],
+        "summary" : "Get a list of template names",
+        "description" : "<p>Get a list of all supported names of templates",
+        "operationId" : "getTemplates",
+        "produces" : [ "application/json;charset=utf-8" ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        }
+      }
+    },
+    "/v1/templateservice/upload/{tenantidentifier}/{templatename}/{language}" : {
+      "post" : {
+        "tags" : [ "Tenant template services" ],
+        "summary" : "Upload Templates for a tenant",
+        "description" : "<p>Upload a template to a given location for this tenant. Currently only a stub returning '501 - not implemented' if properly called.<p>The template path will be created, whether or not it can be used is up to the caller.\n An already existing template at the given path will be overriden.\n <p><b>Caller must provide the proper content-type header, this will be stored in meta data!</b></p>",
+        "operationId" : "uploadTemplate",
+        "consumes" : [ "*/*;charset=utf-8" ],
+        "produces" : [ "text/html;charset=utf-8" ],
+        "parameters" : [ {
+          "name" : "tenantidentifier",
+          "in" : "path",
+          "description" : "tenantidentifier",
+          "required" : true,
+          "type" : "string",
+          "pattern" : "[0-9]+"
+        }, {
+          "name" : "templatename",
+          "in" : "path",
+          "description" : "The id of a template",
+          "required" : true,
+          "type" : "string",
+          "pattern" : "(CTA|CTAREQUEST|DOI|FOOTER|LEGAL|OO|PWD|REENGAGE|REMIND|SHARE)",
+          "enum" : [ "CTA", "CTAREQUEST", "DOI", "FOOTER", "LEGAL", "OO", "PWD", "REENGAGE", "REMIND", "SHARE" ]
+        }, {
+          "name" : "language",
+          "in" : "path",
+          "description" : "One of de, en, ru or no",
+          "required" : true,
+          "type" : "string",
+          "pattern" : "(de|en|ru|no)",
+          "enum" : [ "de", "en", "ru", "no" ]
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "description" : "Template Content",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        },
+        "security" : [ {
+          "Authorization" : [ ]
+        } ]
+      }
+    },
+    "/v1/test/secure" : {
+      "get" : {
+        "operationId" : "secure",
+        "produces" : [ "application/json;charset=utf-8" ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        }
+      }
+    },
+    "/v1/test/unsecure" : {
+      "get" : {
+        "operationId" : "unsecure",
+        "produces" : [ "application/json;charset=utf-8" ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions" : {
+    "Authorization" : {
+      "type" : "apiKey",
+      "name" : "Authorization",
+      "in" : "header"
+    }
+  },
+  "definitions" : {
+    "JSONArray" : {
+      "type" : "object"
+    }
+  }
+}

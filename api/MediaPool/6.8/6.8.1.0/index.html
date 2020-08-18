@@ -17,17 +17,20 @@
         
         
         <ul class="mainnav__list__main"><li class="mainnav__listitem">
-                <a class="mainnav__listitemlink" href="/api/">api</a><ul class="mainnav__list"><li class="mainnav__listitem">
+                <a class="mainnav__listitemlink" href="/api/">API</a><ul class="mainnav__list"><li class="mainnav__listitem">
                 <a class="mainnav__listitemlink" href="/api/MediaPool/">MediaPool</a><ul class="mainnav__list"><li class="mainnav__listitem">
                 <a class="mainnav__listitemlink" href="/api/MediaPool/6.8/">6.8</a><ul class="mainnav__list"><li class="mainnav__listitem">
-                <a class="mainnav__listitemlink" href="/api/MediaPool/6.8/6.8.1.0/">6.8.1.0</a></li></ul></li></ul></li><li class="mainnav__listitem">
+                <a class="mainnav__listitemlink" href="/api/MediaPool/6.8/6.8.1.0/">6.8.1.0</a></li><li class="mainnav__listitem">
+                <a class="mainnav__listitemlink" href="/api/MediaPool/6.8/6.8.2.0/">6.8.2.0</a></li></ul></li><li class="mainnav__listitem">
+                <a class="mainnav__listitemlink" href="/api/MediaPool/6.9/">6.9</a><ul class="mainnav__list"><li class="mainnav__listitem">
+                <a class="mainnav__listitemlink" href="/api/MediaPool/6.9/6.9.1.0/">6.9.1.0</a></li></ul></li></ul></li><li class="mainnav__listitem">
                 <a class="mainnav__listitemlink" href="/api/WebCacheCore/">WebCacheCore</a><ul class="mainnav__list"><li class="mainnav__listitem">
                 <a class="mainnav__listitemlink" href="/api/WebCacheCore/6.8/">6.8</a><ul class="mainnav__list"><li class="mainnav__listitem">
                 <a class="mainnav__listitemlink" href="/api/WebCacheCore/6.8/6.8.1.0/">6.8.1.0</a></li></ul></li></ul></li><li class="mainnav__listitem">
                 <a class="mainnav__listitemlink" href="/api/WebCacheEngage/">WebCacheEngage</a><ul class="mainnav__list"><li class="mainnav__listitem">
                 <a class="mainnav__listitemlink" href="/api/WebCacheEngage/6.8/">6.8</a><ul class="mainnav__list"><li class="mainnav__listitem">
                 <a class="mainnav__listitemlink" href="/api/WebCacheEngage/6.8/6.8.1.0/">6.8.1.0</a></li></ul></li></ul></li></ul></li><li class="mainnav__listitem">
-                <a class="mainnav__listitemlink" href="/github/">github</a></li></ul>
+                <a class="mainnav__listitemlink" href="/github/">GitHub</a></li></ul>
     </nav>
 </header>
         <section class="hero hero--api">
@@ -45,7 +48,7 @@
                 window.onload = function() {
                     // Begin Swagger UI call region
                     const ui = SwaggerUIBundle({
-                        url: "swagger.mediapool.json",
+                        url: "mediapool-api-6.8.1.0.json",
                         dom_id: '#swagger-ui',
                         //docExpansion: "full",
                         deepLinking: false,
@@ -64,5 +67,15 @@
                 }
             </script>
         </section>
+        <script>
+           // Check browser support
+            if (typeof(Storage) !== "undefined") {
+              // Store
+              window.localStorage.setItem("MediaPool_used_productVersion", "6.8");
+              window.localStorage.setItem("MediaPool_6.8_used_apiVersion", "6.8.1.0");
+            } else {
+              console.log("Your browser does not support Web Storage");
+            } 
+        </script>
     </body>
 </html>

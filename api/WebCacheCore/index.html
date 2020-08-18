@@ -3,8 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="refresh" content="0; URL='/api/WebCacheCore/6.8/'" />
-  <title>Redirecting to: /api/WebCacheCore/6.8/</title>
+  <script>
+    // Check browser support
+    if (typeof(Storage) !== "undefined") {
+      // Store
+      console.log(window.localStorage.getItem("WebCacheCore,6.8_used_productVersion"));
+      if (localStorage.getItem("WebCacheCore,6.8_used_productVersion")) {      
+        window.location.href = window.location.href + localStorage.getItem("WebCacheCore,6.8_used_productVersion");
+      } else {
+        window.location.href = window.location.href + "6.8/";
+      }
+      
+    } else {
+      console.log("Your browser does not support Web Storage");
+    } 
+  </script>
 </head>
 <body>
   <!-- Redirect page -->
