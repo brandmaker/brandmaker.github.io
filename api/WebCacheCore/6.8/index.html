@@ -7,14 +7,13 @@
     // Check browser support
     if (typeof(Storage) !== "undefined") {
       // Store
-      console.log(window.localStorage.getItem("_WebCacheCore,6.8,6.8.1.0_used_apiVersion"));
-      if (localStorage.getItem("_WebCacheCore,6.8,6.8.1.0_used_apiVersion")) {      
-        window.location.href = window.location.href + localStorage.getItem("_WebCacheCore,6.8,6.8.1.0_used_apiVersion");
+      if (localStorage.getItem("WebCacheCore_6.8_used_apiVersion")) {      
+        window.location.href = window.location.href + localStorage.getItem("WebCacheCore_6.8_used_apiVersion");
       } else {
         window.location.href = window.location.href + "6.8.1.0";
       }
     } else {
-      console.log("Your browser does not support Web Storage");
+      window.location.href = window.location.href + "6.8.1.0";
     } 
   </script>
 </head>

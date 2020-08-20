@@ -71,8 +71,8 @@
            // Check browser support
             if (typeof(Storage) !== "undefined") {
               // Store
-              window.localStorage.setItem("MediaPool_used_productVersion", "6.8");
-              window.localStorage.setItem("MediaPool_6.8_used_apiVersion", "6.8.2.0");
+              localStorage.setItem("MediaPool_used_productVersion", "6.8");
+              localStorage.setItem("MediaPool_6.8_used_apiVersion", "6.8.2.0");
             } else {
               console.log("Your browser does not support Web Storage");
             } 
