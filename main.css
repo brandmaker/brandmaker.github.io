@@ -213,7 +213,8 @@ a {
   max-width: 100%;
 }
 .hero__text {
-  margin-bottom: 4rem;
+  margin: 0 auto 4rem;
+  max-width: 1280px;
 }
 .api .hero__text {
   display: flex;
@@ -223,7 +224,7 @@ a {
   margin-bottom: 0;
 }
 .hero__headline {
-  font-size: 7rem;
+  font-size: 6rem;
   margin: 6rem 0 2rem;
   padding: 0 2rem;
 }
