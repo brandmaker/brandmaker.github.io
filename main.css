@@ -325,9 +325,6 @@ a {
   align-items: flex-start;
   display: flex;
 }
-.inner .hero .teaser__icon {
-  flex: 0 0 35%;
-}
 .teaser__icon img {
   width: 100%;
 }
