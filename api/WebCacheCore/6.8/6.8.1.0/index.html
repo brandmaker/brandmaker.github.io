@@ -18,19 +18,14 @@
         
         <ul class="mainnav__list__main">
             <!--- eleventy navigation --><li class="mainnav__listitem">
-                <a class="mainnav__listitemlink" href="/api/">API</a><ul class="mainnav__list"><li class="mainnav__listitem">
-                <a class="mainnav__listitemlink" href="/api/MediaPool/">MediaPool</a><ul class="mainnav__list"><li class="mainnav__listitem">
-                <a class="mainnav__listitemlink" href="/api/MediaPool/6.8/">6.8</a><ul class="mainnav__list"><li class="mainnav__listitem">
-                <a class="mainnav__listitemlink" href="/api/MediaPool/6.8/6.8.1.0/">6.8.1.0</a></li><li class="mainnav__listitem">
-                <a class="mainnav__listitemlink" href="/api/MediaPool/6.8/6.8.2.0/">6.8.2.0</a></li></ul></li><li class="mainnav__listitem">
-                <a class="mainnav__listitemlink" href="/api/MediaPool/6.9/">6.9</a><ul class="mainnav__list"><li class="mainnav__listitem">
-                <a class="mainnav__listitemlink" href="/api/MediaPool/6.9/6.9.1.0/">6.9.1.0</a></li></ul></li></ul></li><li class="mainnav__listitem">
-                <a class="mainnav__listitemlink" href="/api/WebCacheCore/">WebCacheCore</a><ul class="mainnav__list"><li class="mainnav__listitem">
-                <a class="mainnav__listitemlink" href="/api/WebCacheCore/6.8/">6.8</a><ul class="mainnav__list"><li class="mainnav__listitem">
-                <a class="mainnav__listitemlink" href="/api/WebCacheCore/6.8/6.8.1.0/">6.8.1.0</a></li></ul></li></ul></li><li class="mainnav__listitem">
-                <a class="mainnav__listitemlink" href="/api/WebCacheEngage/">WebCacheEngage</a><ul class="mainnav__list"><li class="mainnav__listitem">
-                <a class="mainnav__listitemlink" href="/api/WebCacheEngage/6.8/">6.8</a><ul class="mainnav__list"><li class="mainnav__listitem">
-                <a class="mainnav__listitemlink" href="/api/WebCacheEngage/6.8/6.8.1.0/">6.8.1.0</a></li></ul></li></ul></li></ul></li><!--- manually included link to GitHub -->
+                <a class="mainnav__listitemlink" href="/api/">API</a><ul class="mainnav__list">
+                        <!--- only first layer -->
+                            <a class="mainnav__listitemlink" href="/api/MediaPool/">MediaPool</a>
+                        
+                            <a class="mainnav__listitemlink" href="/api/WebCacheCore/">WebCacheCore</a>
+                        
+                            <a class="mainnav__listitemlink" href="/api/WebCacheEngage/">WebCacheEngage</a>
+                        </ul></li><!--- manually included link to GitHub -->
             <li class="mainnav__listitem">
                 <a class="mainnav__listitemlink" href="https://github.com/brandmaker" target="_blank">GitHub</a>
             </li>
@@ -44,7 +39,23 @@
                         <h1 class="hero__headline">WebCacheCore</h1>
                     </div>
                 </section>
+                
+                <div class="nav_modules">
+                    <!--- eleventy navigation -->
+                        <select onchange="javascipt:handleSelect(this)">
+                            <optgroup label="6.8">
+                                <option value="../../../WebCacheCore/6.8/6.8.1.0" selected>
+                                    6.8.1.0
+                                </option>
+                                
+                                </optgroup>
+                            </select></div>
             </header>
+            <script type="text/javascript">
+                function handleSelect(elm) {
+                    window.location = elm.value;
+                }
+            </script>
             <div id="swagger-ui"></div>
             <script src="../../../../swagger/swagger-ui-bundle.js"> </script>
             <script src="../../../../swagger/swagger-ui-standalone-preset.js"> </script>

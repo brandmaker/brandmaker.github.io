@@ -404,51 +404,6 @@ a {
 .mainnav__listitem ul .mainnav__listitemlink:hover {
   border-right: 4px solid #f95b02;
 }
-.mainnav__listitem ul .mainnav__listitem ul {
-  visibility: hidden;
-  padding: 0;
-  position: absolute;
-  padding-top: 1rem;
-  right: 100%;
-  top: 0;
-  width: 75%;
-  text-align: left;
-  opacity: 0;
-  transition: opacity 0.3s ease-out;
-  background: #fff;
-  box-shadow: 0 0 30px rgba(0,0,0,0.5);
-  padding-bottom: 1rem;
-}
-.mainnav__listitem ul .mainnav__listitem ul .mainnav__listitem {
-  position: relative;
-}
-.mainnav__listitem ul .mainnav__listitem ul .mainnav__listitem ul {
-  padding: 0;
-  visibility: hidden;
-  opacity: 0;
-  position: absolute;
-  padding-top: 1rem;
-  right: 100%;
-  width: 75%;
-  text-align: left;
-  transition: opacity 0.3s ease-out;
-  background: #fff;
-  box-shadow: 0 0 30px rgba(0,0,0,0.5);
-  padding-bottom: 1rem;
-}
-.mainnav__listitem ul .mainnav__listitem ul .mainnav__listitem:hover ul {
-  opacity: 1;
-  visibility: visible;
-}
-.mainnav__listitem ul .mainnav__listitem:hover ul {
-  visibility: visible;
-  opacity: 1;
-  right: 100%;
-  top: 0;
-}
-.mainnav__listitem ul .mainnav__listitem:hover > a {
-  color: #f95b02;
-}
 .mainnav__listitem:hover {
   z-index: 15;
 }
@@ -457,12 +412,26 @@ a {
   z-index: 10;
   position: relative;
 }
-.mainnav__listitem:hover.mainnav__listitem--haschildren {
-  font-weight: bold;
-}
 .mainnav__listitem:hover ul {
   visibility: visible;
   opacity: 1;
+}
+.nav_modules {
+  margin: 0.5rem 1rem;
+}
+.nav_modules select {
+  background: #0e133c;
+  color: #fff;
+  font-size: 1.125rem;
+  padding: 0.25rem 1rem;
+}
+.nav_modules select optgroup {
+  font-size: 1.25rem;
+  font-weight: 150;
+}
+.nav_modules select optgroup option {
+  font-family: "Calibri", sans-serif;
+  font-size: 1.125rem;
 }
 .topbar {
   position: -webkit-sticky;
