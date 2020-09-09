@@ -25,6 +25,8 @@
                             <a class="mainnav__listitemlink" href="/api/WebCacheCore/">WebCacheCore</a>
                         
                             <a class="mainnav__listitemlink" href="/api/WebCacheEngage/">WebCacheEngage</a>
+                        
+                            <a class="mainnav__listitemlink" href="/api/WebToPublish/">WebToPublish</a>
                         </ul></li><!--- manually included link to GitHub -->
             <li class="mainnav__listitem">
                 <a class="mainnav__listitemlink" href="https://github.com/brandmaker" target="_blank">GitHub</a>
@@ -36,7 +38,7 @@
             <header class="hero__header">
                 <section class="hero__slogan hero__slogan--api">
                     <div class="hero__text">
-                        <h1 class="hero__headline">MediaPool</h1>
+                        <h1 class="hero__headline">WebToPublish</h1>
                     </div>
                 </section>
                 
@@ -44,21 +46,9 @@
                     <!--- eleventy navigation -->
                     <label for="navselect">Selected Version:</label> 
                         <select onchange="javascipt:handleSelect(this)" id="navselect">
-                            <optgroup label="6.8">
-                                <option value="../../../MediaPool/6.8/6.8.1.0">
-                                    6.8.1.0
-                                </option>
-                                
-                                
-                                <option value="../../../MediaPool/6.8/6.8.2.0" selected>
-                                    6.8.2.0
-                                </option>
-                                
-                                </optgroup>
-                            
-                            <optgroup label="6.9">
-                                <option value="../../../MediaPool/6.9/6.9.1.0">
-                                    6.9.1.0
+                            <optgroup label="6.6">
+                                <option value="../../../WebToPublish/6.6/6.6.1.0" selected>
+                                    6.6.1.0
                                 </option>
                                 
                                 </optgroup>
@@ -76,7 +66,7 @@
                 window.onload = function() {
                     // Begin Swagger UI call region
                     const ui = SwaggerUIBundle({
-                        url: "swagger.mediapool.json",
+                        url: "wp-rest-14.0.1-6.6.0-swagger2.json",
                         dom_id: '#swagger-ui',
                         //docExpansion: "full",
                         deepLinking: false,
@@ -99,8 +89,8 @@
            // Check browser support
             if (typeof(Storage) !== "undefined") {
               // Store
-              localStorage.setItem("MediaPool_used_productVersion", "6.8");
-              localStorage.setItem("MediaPool_6.8_used_apiVersion", "6.8.2.0");
+              localStorage.setItem("WebToPublish_used_productVersion", "6.6");
+              localStorage.setItem("WebToPublish_6.6_used_apiVersion", "6.6.1.0");
             } else {
               console.log("Your browser does not support Web Storage");
             } 

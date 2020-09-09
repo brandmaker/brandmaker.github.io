@@ -25,6 +25,8 @@
                             <a class="mainnav__listitemlink" href="/api/WebCacheCore/">WebCacheCore</a>
                         
                             <a class="mainnav__listitemlink" href="/api/WebCacheEngage/">WebCacheEngage</a>
+                        
+                            <a class="mainnav__listitemlink" href="/api/WebToPublish/">WebToPublish</a>
                         </ul></li><!--- manually included link to GitHub -->
             <li class="mainnav__listitem">
                 <a class="mainnav__listitemlink" href="https://github.com/brandmaker" target="_blank">GitHub</a>
@@ -49,11 +51,6 @@
                                     6.8.1.0
                                 </option>
                                 
-                                
-                                <option value="../../../MediaPool/6.8/6.8.2.0">
-                                    6.8.2.0
-                                </option>
-                                
                                 </optgroup>
                             
                             <optgroup label="6.9">
@@ -76,7 +73,7 @@
                 window.onload = function() {
                     // Begin Swagger UI call region
                     const ui = SwaggerUIBundle({
-                        url: "swagger.mediapool.json",
+                        url: "swagger.json",
                         dom_id: '#swagger-ui',
                         //docExpansion: "full",
                         deepLinking: false,
