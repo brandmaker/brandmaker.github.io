@@ -210,6 +210,7 @@ a {
 .hero__slogan--api,
 .inner .hero__slogan {
   height: auto;
+  margin: 0;
   max-width: 1200px;
   justify-content: flex-start;
   text-align: left;
@@ -417,7 +418,7 @@ a {
   opacity: 1;
 }
 .nav_modules {
-  margin: 0.5rem 1rem;
+  margin: 1rem 0rem;
 }
 .nav_modules select {
   background: #0e133c;
