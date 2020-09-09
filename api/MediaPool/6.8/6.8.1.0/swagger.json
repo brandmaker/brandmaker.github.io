@@ -18435,9 +18435,6 @@
           "404" : {
             "description" : "The id does not corresponds to a master asset"
           },
-          "404" : {
-            "description" : "The id does not corresponds to a valid asset"
-          },
           "403" : {
             "description" : "The user have insufficient rights to perform the operation"
           }
@@ -20248,9 +20245,6 @@
           },
           "404" : {
             "description" : "The id does not corresponds to a master asset"
-          },
-          "404" : {
-            "description" : "Asset with this id does not exists"
           },
           "400" : {
             "description" : "Id must be not null and greater then 0"
@@ -36307,9 +36301,6 @@
         "responses" : {
           "200" : {
             "description" : "successful request"
-          },
-          "400" : {
-            "description" : "invalid id"
           },
           "401" : {
             "description" : "user not authenticated"

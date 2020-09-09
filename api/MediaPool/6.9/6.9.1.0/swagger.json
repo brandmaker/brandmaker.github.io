@@ -26866,9 +26866,6 @@
           "404" : {
             "description" : "The id does not corresponds to a master asset"
           },
-          "404" : {
-            "description" : "The id does not corresponds to a valid asset"
-          },
           "403" : {
             "description" : "The user have insufficient rights to perform the operation"
           }
@@ -28799,9 +28796,6 @@
           },
           "404" : {
             "description" : "The id does not corresponds to a master asset"
-          },
-          "404" : {
-            "description" : "Asset with this id does not exists"
           },
           "400" : {
             "description" : "Id must be not null and greater then 0"
@@ -45880,9 +45874,6 @@
           },
           "403" : {
             "description" : "insufficient rights for the module"
-          },
-          "400" : {
-            "description" : "entity for that id not found"
           },
           "409" : {
             "description" : "provided dates contains invalid values"
